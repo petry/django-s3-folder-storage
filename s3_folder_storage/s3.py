@@ -15,6 +15,12 @@ class StaticStorage(S3BotoStorage):
         kwargs['location'] = settings.STATIC_S3_PATH
         super(StaticStorage, self).__init__(*args, **kwargs)
 
+    def get_available_name(self, name):
+        """ Overwrite existing file with the same name. """
+        name = self._clean_name(name)
+        return name
+
+
 class DefaultStorage(S3BotoStorage):
     """
     Storage for uploaded media files.
